@@ -1,0 +1,108 @@
+---
+# You don't need to edit this file, it's empty on purpose.
+# Edit theme's home layout instead if you wanna make some changes
+# See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
+layout: page
+---
+
+<div class="container">
+    <div class="row search-results" style="display:none">
+        <div class="col-md-12">
+            <ul class="list-group" id="search-results">
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <ul class="list-group">
+                <li class="list-group-item list-group-item inauguration-time-container">            <i class="fa fa-home fa-fw"></i>            <b id="inauguration-time">Dias para assumir: <span id="inauguration-days"></span></b></li>
+                <li class="list-group-item list-group-item">            <i class="fa fa-calendar fa-fw"></i>            <b>Dias de Trabalho: <span id="days-in-office"></span> </b></li>
+                <li class="list-group-item list-group-item-info">       <i class="fa fa-hourglass-start fa-fw"></i>     Ainda Não Iniciados: <span id="points-not-started"></span> of <span class="total-points"></span></li>
+                <li class="list-group-item list-group-item-warning">    <i class="fa fa-cogs fa-fw"></i>                Em Progesso: <span id="points-in-progress"></span> of <span class="total-points"></span></li>
+                <li class="list-group-item list-group-item-success">    <i class="fa fa-check-circle-o fa-fw"></i>      Arquivados: <span id="points-achieved"></span> of <span class="total-points"></span></li>
+                <li class="list-group-item list-group-item-danger">     <i class="fa fa-ban fa-fw"></i>                 Não aprovados: <span id="points-broken"></span> of <span class="total-points"></span></li>
+            </ul>
+            <p>
+
+No Domingo 30 de Dezembro de 2016, Washington Reis de Oliveira ganhou democraticamente a votação eleitoral e atualmente aguarda para ser o Prefeito eleito da cidade de Duque de Caxias.
+                <br /><br />
+                Ele fez <b>muitas promessas</b>. Washington Rastreador irá verificar e ver se ele adere a todas as suas posições sobre as políticas relativas à cultura, saúde, educação e muitos mais..
+            </p>
+            <div class="">
+            <!-- I got these buttons from simplesharebuttons.com -->
+            <div id="share-buttons">
+            <!-- Facebook -->
+            <a href="http://www.facebook.com/sharer.php?u=https://trumptracker.github.io/" target="_blank">
+            <img src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" />
+            </a>
+            <!-- Google+ -->
+            <a href="https://plus.google.com/share?url=https://trumptracker.github.io/" target="_blank">
+            <img src="https://simplesharebuttons.com/images/somacro/google.png" alt="Google" />
+            </a>
+            <!-- Twitter -->
+            <a href="https://twitter.com/share?url=https://trumptracker.github.io/&amp;text=Track&nbsp;@realDonaldTrump&nbsp;Electoral&nbsp;Promises&nbsp;with&nbsp;Trump&nbsp;Tracker.&amp;hashtags=TrumpTracker&amp;via=VirenMohindra" target="_blank">
+            <img src="https://simplesharebuttons.com/images/somacro/twitter.png" alt="Twitter" />
+            </a>
+            </div>
+        </div>
+        </div>
+        <div class="col-md-6">
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/hc8m3Zg9yHY"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="container-fluid">
+    <div class="row">
+        <ul class="nav nav-tabs" id="myTabs" role="tablist">
+            {% for tab in site.data.data.tabs %}
+                <li role="presentation" class="{{tab.id}} {% if forloop.index == 1 %}active{% endif %}">
+                    <a href="#{{tab.id}}" aria-controls="{{tab.id}}" role="tab" data-toggle="tab">
+                        <i class="fa fa-{{tab.icon}}"></i> {{tab.name}}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            {% for tab in site.data.data.tabs %}
+              <div role="tabpanel" class="tab-pane {% if forloop.index == 1 %}active{% endif %} fade in" id="{{tab.id}}">
+                  <div class="row">
+                  <div class="input-group">
+                    <div class="input-group-addon"><span>Search </span></div>
+                    <input type="text" placeholder="keyword" class="form-control search"/>
+                  </div>
+                    {% for section in tab.sections %}
+                      <table class="table">
+                        <thead>
+                            <tr>
+                                <td></td>
+                                <th><a href="{{section.link}}">{{section.header}}</a></th>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for point in section.points %}
+                            <tr class="{% if point.status == 'broken' %}danger{% endif %} {% if point.status == 'achieved' %}success{% endif %}">
+                                <th>{{forloop.index}}</th>
+                                <td>{{point.text}}</td>
+                                <td>
+                                    {% if point.comments %}
+                                        <a href="{{point.comments}}" target="_blank" rel="nofollow">Comment</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                      </table>
+                    {% endfor %}
+                  </div>
+              </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
